@@ -184,20 +184,25 @@ Upload your fashion dataset and search for products that match your desired vibe
 with st.sidebar:
     st.header("⚙️ Configuration")
 
-    # HuggingFace API Token
+    # Replace the HF token input section with:
     st.header("🔑 API Configuration")
-    hf_token = st.text_input(
-        "HuggingFace API Token",
-        type="password",
-        help="Get your free token at https://huggingface.co/settings/tokens"
-    )
 
-    if hf_token:
+    # Try to get token from secrets first
+    if "HF_TOKEN" in st.secrets:
+        hf_token = st.secrets["HF_TOKEN"]
         st.session_state.hf_token = hf_token
-        st.success("✅ API token set!")
+        st.success("✅ Using configured API token")
     else:
-        st.warning("⚠️ Please enter your HuggingFace API token to continue")
-
+        # Fallback to manual input
+        hf_token = st.text_input(
+            "HuggingFace API Token",
+            type="password",
+            help="Get your free token at https://huggingface.co/settings/tokens"
+        )
+        if hf_token:
+            st.session_state.hf_token = hf_token
+            st.success("✅ API token set!")
+            
     # Model selection
     model_choice = st.selectbox(
         "Select Embedding Model",
