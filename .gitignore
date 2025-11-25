@@ -39,6 +39,7 @@ Thumbs.db
 
 # Environment variables
 .env
+.streamlit
 secrets.toml
 
 # Data files (optional - remove if you want to include sample data)
